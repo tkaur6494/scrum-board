@@ -115,7 +115,7 @@ const ScrumBoard = () => {
           {Object.keys(completeTaskList).map((listId) => {
             return (
               <div key={listId} className="taskListContainer">
-                <Title level={4}>{completeTaskList[listId].title}</Title>
+                <Title level={5} className="taskListHeading">{completeTaskList[listId].title}</Title>
                 <Droppable key={listId} droppableId={listId}>
                   {(provided, snapshot) => {
                     return (

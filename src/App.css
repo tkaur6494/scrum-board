@@ -45,16 +45,26 @@
 .ant-card-body{
   overflow: hidden;
   text-overflow: ellipsis;
+  background: #7ec1ff78;
 }
 
 .taskListContainer{
   height: 500px;
-  background: lightblue;
-  width:20%
+  background: #f4f5f7;
+  padding-top:5px;
+  width:20%;
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 0px 1px;
 }
 
 .ant-btn-primary{
   margin:15px
+}
+
+.taskListHeading{
+  color:#5E6C84;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 
