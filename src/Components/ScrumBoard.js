@@ -86,6 +86,7 @@ const ScrumBoard = () => {
   };
 
   const onClickShowModal = () => {
+       console.log("test")
         setShowAddTaskModal(prevState=>!prevState)
     }
 
@@ -103,7 +104,7 @@ const ScrumBoard = () => {
   return (
     <Content>
       <Row justify="center">
-        <Title level={3}>ScrumBoard</Title>
+        <Title level={3} id="scrumBoardTitle">ScrumBoard</Title>
       </Row>
 
       <Row justify="space-around">
@@ -143,9 +144,9 @@ const ScrumBoard = () => {
         </DragDropContext>
       </Row>
       <Row justify="center">
-          <Button type="primary" onClick={()=>onClickShowModal()}>Add New Task</Button>
+          <Button id="addTaskBtn" type="primary" onClick={()=>onClickShowModal()}>Add New Task</Button>
       </Row>
-      <AddTaskModal onClickShowModal={onClickShowModal} showAddTaskModal={showAddTaskModal} completeTaskList={completeTaskList} onSubmit={(newTask)=>{onSubmit(newTask)}}/>
+      {showAddTaskModal ? <AddTaskModal onClickShowModal={onClickShowModal} showAddTaskModal={showAddTaskModal} completeTaskList={completeTaskList} onSubmit={(newTask)=>{onSubmit(newTask)}}/>:null}
       
     </Content>
   );

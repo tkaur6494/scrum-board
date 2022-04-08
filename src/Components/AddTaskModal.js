@@ -32,7 +32,7 @@ const AddTaskModal = (props) => {
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Button type="primary" onClick={onClickShowModal}>
+          <Button type="primary" onClick={onClickShowModal} >
             Cancel
           </Button>
         </Form.Item>

@@ -45,16 +45,21 @@
 .ant-card-body{
   overflow: hidden;
   text-overflow: ellipsis;
-  background: #7ec1ff78;
+  box-shadow: 1px 1px 3px 2px #dcd7d7ad;
 }
 
 .taskListContainer{
-  height: 500px;
+  height: 600px;
   background: #f4f5f7;
   padding-top:5px;
   width:20%;
   border-radius: 8px;
-  box-shadow: inset 0px 0px 0px 1px;
+  /* box-shadow: inset 0px 0px 0px 1px; */
+}
+
+.taskListDroppable{
+  height: 560px;
+  overflow-y: auto;
 }
 
 .ant-btn-primary{
@@ -62,9 +67,10 @@
 }
 
 .taskListHeading{
-  color:#5E6C84;
+  color:#5E6C84 !important;
   font-size: 12px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 
