@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import StatusList from "./StatusList";
-import { Layout, Row, Col, Typography } from "antd";
+import { Layout, Row, Typography } from "antd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "antd/dist/antd.css";
 
 const { Content } = Layout;
@@ -41,13 +42,48 @@ const data = {
 };
 
 const ScrumBoard = () => {
-  const [completeTaskList, setCompleteTaskList] = useState({});
+  const [completeTaskList, setCompleteTaskList] = useState(data);
 
-  
+  const onDragEnd = (result, completeTaskList, setCompleteTaskList) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
 
-  useEffect(() => {
-    setCompleteTaskList(data);
-  }, []);
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColumn = completeTaskList[source.droppableId];
+      const destColumn = completeTaskList[destination.droppableId];
+
+      const sourceItems = [...sourceColumn.tasks];
+      const destItems = [...destColumn.tasks];
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      let newObj = {
+        ...completeTaskList,
+        [source.droppableId]: {
+          ...sourceColumn,
+          tasks: sourceItems,
+        },
+        [destination.droppableId]: {
+          ...destColumn,
+          tasks: destItems,
+        },
+      };
+      console.log(completeTaskList);
+      console.log(newObj);
+      setCompleteTaskList(JSON.parse(JSON.stringify(newObj)));
+    } else {
+      const column = completeTaskList[source.droppableId];
+      const copiedItems = [...column.tasks];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      setCompleteTaskList((prevList) => ({
+        ...prevList,
+        [source.droppableId]: {
+          ...column,
+          tasks: copiedItems,
+        },
+      }));
+    }
+  };
 
   return (
     <Content>
@@ -56,13 +92,37 @@ const ScrumBoard = () => {
       </Row>
 
       <Row justify="space-between">
-        {Object.keys(completeTaskList).map((listId) => {
-          return (
-            <Col  span={5} key={listId} style={{ background: "lightgrey" }}>
-              <StatusList key={listId} statusObj={completeTaskList[listId]} />
-            </Col>
-          );
-        })}
+        <DragDropContext
+          onDragEnd={(result) =>
+            onDragEnd(result, completeTaskList, setCompleteTaskList)
+          }
+        >
+          {Object.keys(completeTaskList).map((listId) => {
+            return (
+              <div>
+                <h1>{completeTaskList[listId].title}</h1>
+                <Droppable key={listId} droppableId={listId}>
+                  {(provided, snapshot) => {
+                    return (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        style={{ height: "500px", background: "lightblue" }}
+                      >
+                        <StatusList
+                          key={listId}
+                          statusObj={completeTaskList[listId]}
+                          taskListId={listId}
+                        />
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
+              </div>
+            );
+          })}
+        </DragDropContext>
       </Row>
     </Content>
   );
