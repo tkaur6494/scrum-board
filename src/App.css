@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.taskCardContainer{
+  padding:10px;
+ 
+}
+
+.ant-card-body{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskListContainer{
+  height: 500px;
+  background: lightblue;
+  width:20%
+}
+
+.ant-btn-primary{
+  margin:15px
+}
+
+

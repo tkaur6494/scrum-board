@@ -1,4 +1,5 @@
 import React from "react";
+import {Card} from 'antd';
 import { Draggable } from "react-beautiful-dnd";
 
 const TaskCard = (props) => {
@@ -14,9 +15,13 @@ const TaskCard = (props) => {
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             style={provided.draggableProps.style}
+            className="taskCardContainer"
           >
-            
+            <Card>
             {content}
+            </Card>
+            
+            
           </div>
         );
       }}

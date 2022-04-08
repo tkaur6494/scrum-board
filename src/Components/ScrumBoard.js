@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import StatusList from "./StatusList";
-import { Layout, Row, Typography,Modal } from "antd";
+import { Layout, Row, Typography,Button } from "antd";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "antd/dist/antd.css";
 import AddTaskModal from "./AddTaskModal";
@@ -114,15 +114,15 @@ const ScrumBoard = () => {
         >
           {Object.keys(completeTaskList).map((listId) => {
             return (
-              <div key={listId} style={{width:"20%"}}>
-                <h1>{completeTaskList[listId].title}</h1>
+              <div key={listId} className="taskListContainer">
+                <Title level={4}>{completeTaskList[listId].title}</Title>
                 <Droppable key={listId} droppableId={listId}>
                   {(provided, snapshot) => {
                     return (
                       <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        style={{ height: "500px", background: "lightblue" }}
+                        
                         key={listId} 
                       >
                         <StatusList
@@ -142,8 +142,8 @@ const ScrumBoard = () => {
           })}
         </DragDropContext>
       </Row>
-      <Row>
-          <button onClick={()=>onClickShowModal()}>Add New Task</button>
+      <Row justify="center">
+          <Button type="primary" onClick={()=>onClickShowModal()}>Add New Task</Button>
       </Row>
       <AddTaskModal onClickShowModal={onClickShowModal} showAddTaskModal={showAddTaskModal} completeTaskList={completeTaskList} onSubmit={(newTask)=>{onSubmit(newTask)}}/>
       
